@@ -1,0 +1,6 @@
+{
+    "framework": "nuxtjs",
+    "buildCommand": "npm run generate",
+    "outputDirectory": "dist",
+    "cleanUrls": true
+}

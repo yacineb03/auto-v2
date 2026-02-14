@@ -1,0 +1,758 @@
+<html lang="fr" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drive.OS | Plateforme Auto-École Premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #08090A;
+            --panel-bg: #111214;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-glow: rgba(255, 255, 255, 0.03);
+            --text-primary: #EDEDED;
+            --text-secondary: #888888;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Utilities */
+        .glass-panel {
+            background: rgba(17, 18, 20, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+        }
+
+        .input-reset {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        .input-reset:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .delay-100 {
+            animation-delay: 100ms;
+        }
+
+        .delay-200 {
+            animation-delay: 200ms;
+        }
+
+        .delay-300 {
+            animation-delay: 300ms;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom UI Elements */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #fff;
+        }
+
+        .toggle-checkbox:checked+.toggle-label {
+            background-color: #fff;
+        }
+
+        .tab-active {
+            color: white;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Map Pattern Placeholder */
+        .map-pattern {
+            background-image: radial-gradient(#333 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-color: #0c0d0f;
+        }
+    </style>
+</head>
+
+<body class="h-screen w-full flex overflow-hidden selection:bg-white/20">
+
+    <!-- Sidebar Navigation -->
+    <aside class="w-64 h-full border-r border-white/10 flex flex-col bg-[#0B0C0E] z-30 hidden md:flex">
+        <!-- Brand -->
+        <div class="p-6 border-b border-white/5">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-white rounded flex items-center justify-center text-black">
+                    <iconify-icon icon="solar:wheel-angle-linear" width="20"></iconify-icon>
+                </div>
+                <span class="text-sm font-medium tracking-wide">DRIVE.OS</span>
+            </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-1">
+            <div class="text-[10px] uppercase tracking-widest text-gray-500 px-3 mb-2">Menu Principal</div>
+
+            <a href="#"
+                class="flex items-center gap-3 px-3 py-2 text-sm text-white rounded hover:bg-white/5 transition-colors group">
+                <iconify-icon icon="solar:widget-2-linear"
+                    class="text-gray-400 group-hover:text-white transition-colors"></iconify-icon>
+                Dashboard
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-3 py-2 text-sm text-gray-400 rounded hover:bg-white/5 hover:text-white transition-colors group">
+                <iconify-icon icon="solar:calendar-linear"
+                    class="text-gray-400 group-hover:text-white transition-colors"></iconify-icon>
+                Planning
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-3 py-2 text-sm text-gray-400 rounded hover:bg-white/5 hover:text-white transition-colors group">
+                <iconify-icon icon="solar:chat-round-line-linear"
+                    class="text-gray-400 group-hover:text-white transition-colors"></iconify-icon>
+                Messages
+                <span class="ml-auto bg-white/10 text-[10px] px-1.5 py-0.5 rounded-full text-white">2</span>
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-3 py-2 text-sm text-gray-400 rounded hover:bg-white/5 hover:text-white transition-colors group">
+                <iconify-icon icon="solar:folder-with-files-linear"
+                    class="text-gray-400 group-hover:text-white transition-colors"></iconify-icon>
+                Documents
+            </a>
+
+            <!-- Contextual Navigation (Changes based on View) -->
+            <div id="contextNav" class="mt-8">
+                <!-- Injected via JS -->
+            </div>
+        </nav>
+
+        <!-- View Switcher (For Demo Purposes) -->
+        <div class="p-4 border-t border-white/5 bg-black/20">
+            <label class="block text-[10px] uppercase text-gray-600 tracking-widest mb-2">Mode Démo</label>
+            <div class="grid grid-cols-3 gap-1 bg-white/5 p-1 rounded-lg">
+                <button onclick="switchView('student')" id="btn-student"
+                    class="text-[10px] py-1.5 rounded bg-white text-black font-medium transition-all">Élève</button>
+                <button onclick="switchView('staff')" id="btn-staff"
+                    class="text-[10px] py-1.5 rounded text-gray-400 hover:text-white transition-all">Staff</button>
+                <button onclick="switchView('admin')" id="btn-admin"
+                    class="text-[10px] py-1.5 rounded text-gray-400 hover:text-white transition-all">Admin</button>
+            </div>
+        </div>
+
+        <!-- User Profile -->
+        <div class="p-4 border-t border-white/5">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-8 h-8 rounded-full bg-gradient-to-tr from-gray-700 to-gray-600 flex items-center justify-center text-xs text-white">
+                    JD
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-xs font-medium text-white truncate" id="userName">Julien Dupont</p>
+                    <p class="text-[10px] text-gray-500 truncate" id="userRole">Élève - Permis B</p>
+                </div>
+                <button class="text-gray-500 hover:text-white">
+                    <iconify-icon icon="solar:settings-linear"></iconify-icon>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-full overflow-hidden relative bg-[#08090A]">
+
+        <!-- Header -->
+        <header
+            class="h-16 border-b border-white/5 flex items-center justify-between px-6 md:px-8 bg-[#08090A]/80 backdrop-blur z-20 sticky top-0">
+            <div class="flex items-center gap-4">
+                <button class="md:hidden text-white"><iconify-icon icon="solar:hamburger-menu-linear"
+                        width="24"></iconify-icon></button>
+                <h1 class="text-sm font-medium tracking-tight text-white" id="pageTitle">Tableau de bord</h1>
+            </div>
+            <div class="flex items-center gap-6">
+                <div
+                    class="hidden md:flex items-center gap-2 text-xs text-gray-500 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
+                    <iconify-icon icon="solar:cloud-sun-2-linear" class="text-white"></iconify-icon>
+                    <span>Paris, 14°C • Routes sèches</span>
+                </div>
+                <button class="relative text-gray-400 hover:text-white transition-colors">
+                    <iconify-icon icon="solar:bell-linear" width="20"></iconify-icon>
+                    <span
+                        class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border-2 border-[#08090A]"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Scrollable Content Area -->
+        <div id="contentArea" class="flex-1 overflow-y-auto p-6 md:p-8 relative">
+
+            <!-- VIEW: STUDENT -->
+            <div id="view-student" class="max-w-6xl mx-auto space-y-8 fade-in">
+
+                <!-- Hero Section: Next Lesson -->
+                <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 glass-panel rounded-2xl p-6 md:p-8 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <iconify-icon icon="solar:steering-wheel-square-linear" width="120"></iconify-icon>
+                        </div>
+                        <div class="relative z-10">
+                            <span
+                                class="inline-block px-2 py-1 bg-white/10 rounded text-[10px] uppercase tracking-widest text-white mb-4 border border-white/5">Prochaine
+                                Séance</span>
+                            <h2 class="text-3xl md:text-4xl font-light text-white tracking-tight mb-2">Mardi 24 Octobre
+                            </h2>
+                            <div class="flex items-center gap-4 text-gray-400 mb-8">
+                                <span class="flex items-center gap-2 text-sm"><iconify-icon
+                                        icon="solar:clock-circle-linear"></iconify-icon> 14:00 - 16:00 (2h)</span>
+                                <span class="flex items-center gap-2 text-sm"><iconify-icon
+                                        icon="solar:map-point-linear"></iconify-icon> Point A - Centre Ville</span>
+                            </div>
+
+                            <div class="flex items-center gap-4">
+                                <img src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+                                    class="w-10 h-10 rounded-full border border-white/10" alt="Monitor">
+                                <div>
+                                    <p class="text-sm text-white">Sarah M.</p>
+                                    <p class="text-xs text-gray-500">Monitrice Principale</p>
+                                </div>
+                                <div class="ml-auto flex gap-3">
+                                    <button
+                                        class="px-4 py-2 rounded border border-white/10 text-xs text-white hover:bg-white hover:text-black transition-colors">Contacter</button>
+                                    <button
+                                        class="px-4 py-2 rounded bg-white text-black text-xs font-medium hover:bg-gray-200 transition-colors">Voir
+                                        l'itinéraire</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Card -->
+                    <div class="glass-panel rounded-2xl p-6 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-sm font-medium text-white mb-6">Progression Globale</h3>
+
+                            <div class="mb-6">
+                                <div class="flex justify-between text-xs mb-2">
+                                    <span class="text-gray-400">Code de la route</span>
+                                    <span class="text-white">92% Prêt</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                                    <div class="h-full bg-white w-[92%]"></div>
+                                </div>
+                                <p class="text-[10px] text-gray-500 mt-2">Dernière série: 3 fautes</p>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs mb-2">
+                                    <span class="text-gray-400">Conduite (20h min)</span>
+                                    <span class="text-white">12h / 20h</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                                    <div class="h-full bg-white w-[60%]"></div>
+                                </div>
+                                <p class="text-[10px] text-gray-500 mt-2">Compétence en cours: Créneaux</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-4 border-t border-white/5">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-gray-400">Score Prépa Examen</span>
+                                <span class="text-lg font-light text-white">6.5<span
+                                        class="text-gray-600 text-sm">/10</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Quick Actions & Map -->
+                <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Actions -->
+                    <div class="space-y-4 delay-100 fade-in">
+                        <h3 class="text-sm text-gray-500 uppercase tracking-widest">Actions Rapides</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <button
+                                class="p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all text-left group">
+                                <iconify-icon icon="solar:calendar-add-linear"
+                                    class="text-white mb-3 text-xl group-hover:scale-110 transition-transform"></iconify-icon>
+                                <div class="text-sm text-white">Réserver une heure</div>
+                                <div class="text-[10px] text-gray-500 mt-1">3 créneaux dispo demain</div>
+                            </button>
+                            <button
+                                class="p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all text-left group">
+                                <iconify-icon icon="solar:book-bookmark-linear"
+                                    class="text-white mb-3 text-xl group-hover:scale-110 transition-transform"></iconify-icon>
+                                <div class="text-sm text-white">Série de Code</div>
+                                <div class="text-[10px] text-gray-500 mt-1">Thème: Priorités</div>
+                            </button>
+                        </div>
+
+                        <!-- Smart Feature: Waiting List -->
+                        <div
+                            class="p-4 rounded-xl border border-yellow-500/20 bg-yellow-500/5 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2 rounded-full bg-yellow-500/10 text-yellow-500">
+                                    <iconify-icon icon="solar:alarm-linear"></iconify-icon>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-white font-medium">Liste d'attente Intelligente</div>
+                                    <div class="text-[10px] text-gray-400">Alerte si un créneau se libère Samedi</div>
+                                </div>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked="" class="sr-only peer">
+                                <div
+                                    class="w-9 h-5 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-white/20">
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Map/Zones -->
+                    <div
+                        class="h-full min-h-[200px] rounded-xl border border-white/10 overflow-hidden relative delay-100 fade-in">
+                        <iframe id="map-frame"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.99162569376!2d2.292292615509614!3d48.85837007928746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0!2sTour%20Eiffel!5e0!3m2!1sfr!2sfr!4v1697554900000!5m2!1sfr!2sfr"
+                            class="absolute inset-0 w-full h-full grayscale invert opacity-60 mix-blend-lighten transition-opacity duration-500"
+                            style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#08090A] to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <span class="block text-[10px] uppercase text-gray-500 tracking-widest mb-1">Zones
+                                        Pratiquées</span>
+                                    <div class="flex gap-2">
+                                        <button onclick="updateMap('center')"
+                                            class="px-2 py-1 rounded bg-white/10 text-[10px] text-white border border-white/5 hover:bg-white hover:text-black transition-colors cursor-pointer">Centre-ville</button>
+                                        <button onclick="updateMap('highway')"
+                                            class="px-2 py-1 rounded bg-white/10 text-[10px] text-white border border-white/5 hover:bg-white hover:text-black transition-colors cursor-pointer">Autoroute</button>
+                                        <button onclick="updateMap('parking')"
+                                            class="px-2 py-1 rounded bg-red-500/10 text-[10px] text-red-400 border border-red-500/20 hover:bg-red-500 hover:text-white transition-colors cursor-pointer">À
+                                            voir: Stationnement</button>
+                                    </div>
+                                </div>
+                                <button
+                                    class="p-2 rounded-full bg-white text-black hover:scale-105 transition-transform"><iconify-icon
+                                        icon="solar:map-arrow-square-linear"></iconify-icon></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- VIEW: STAFF / MONITOR -->
+            <div id="view-staff" class="max-w-6xl mx-auto space-y-8 hidden">
+                <!-- Planning Strip -->
+                <div class="flex overflow-x-auto pb-4 gap-4 border-b border-white/5 scrollbar-hide">
+                    <div class="flex-shrink-0 w-32 p-4 rounded-xl bg-white text-black">
+                        <span class="block text-xs font-medium mb-1">Aujourd'hui</span>
+                        <span class="text-2xl font-light tracking-tight">8 Séances</span>
+                    </div>
+                    <!-- Calendar Items -->
+                    <div
+                        class="flex-shrink-0 w-64 p-4 rounded-xl border border-white/10 bg-white/5 flex gap-3 opacity-50">
+                        <span class="text-xs text-gray-500">08:00</span>
+                        <div>
+                            <span class="block text-xs text-white line-through decoration-gray-500">Thomas B.</span>
+                            <span class="text-[10px] text-gray-500">Terminé</span>
+                        </div>
+                    </div>
+                    <div
+                        class="flex-shrink-0 w-64 p-4 rounded-xl border border-blue-500/30 bg-blue-500/5 flex gap-3 relative overflow-hidden">
+                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
+                        <span class="text-xs text-white font-medium">10:00</span>
+                        <div>
+                            <span class="block text-xs text-white font-medium">Julie R.</span>
+                            <span class="text-[10px] text-blue-300">En cours • Étape 2</span>
+                        </div>
+                        <button class="ml-auto text-blue-400 hover:text-white"><iconify-icon
+                                icon="solar:alt-arrow-right-linear"></iconify-icon></button>
+                    </div>
+                </div>
+
+                <!-- Active Student Evaluation Context -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Student Brief -->
+                    <div class="lg:col-span-1 space-y-6">
+                        <div class="glass-panel p-6 rounded-xl">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-white text-sm">
+                                    JR</div>
+                                <div>
+                                    <h3 class="text-white text-sm font-medium">Julie Roberts</h3>
+                                    <p class="text-xs text-gray-500">22h Effectuées</p>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex justify-between text-xs py-2 border-b border-white/5">
+                                    <span class="text-gray-400">Niveau</span>
+                                    <span class="text-white">Intermédiaire</span>
+                                </div>
+                                <div class="flex justify-between text-xs py-2 border-b border-white/5">
+                                    <span class="text-gray-400">Dernière note</span>
+                                    <span class="text-yellow-400">À renforcer</span>
+                                </div>
+                                <div class="pt-2">
+                                    <span class="block text-[10px] uppercase text-gray-500 mb-2">Checklist
+                                        Manœuvres</span>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span
+                                            class="px-2 py-1 rounded bg-green-500/10 text-green-400 text-[10px] border border-green-500/20">Démarrage
+                                            côte</span>
+                                        <span
+                                            class="px-2 py-1 rounded bg-red-500/10 text-red-400 text-[10px] border border-red-500/20">Rangement
+                                            Bataille</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button
+                            class="w-full py-3 rounded-lg border border-red-500/30 text-red-400 text-xs uppercase tracking-widest hover:bg-red-500/10 transition-colors">
+                            Signaler Absence
+                        </button>
+                    </div>
+
+                    <!-- Rapid Reporting Tool -->
+                    <div class="lg:col-span-2 glass-panel p-6 md:p-8 rounded-xl">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-lg font-light text-white">Compte Rendu Express</h2>
+                            <span class="text-xs text-gray-500">Session de 10h00</span>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-4 mb-8">
+                            <button
+                                class="flex flex-col items-center justify-center p-4 rounded-lg border border-white/10 bg-white/5 hover:bg-green-500/10 hover:border-green-500/50 transition-all group">
+                                <iconify-icon icon="solar:check-circle-linear"
+                                    class="text-2xl text-gray-400 group-hover:text-green-400 mb-2"></iconify-icon>
+                                <span class="text-xs text-gray-300 group-hover:text-white">Acquis</span>
+                            </button>
+                            <button
+                                class="flex flex-col items-center justify-center p-4 rounded-lg border border-white/10 bg-white/5 hover:bg-yellow-500/10 hover:border-yellow-500/50 transition-all group">
+                                <iconify-icon icon="solar:refresh-circle-linear"
+                                    class="text-2xl text-gray-400 group-hover:text-yellow-400 mb-2"></iconify-icon>
+                                <span class="text-xs text-gray-300 group-hover:text-white">À Revoir</span>
+                            </button>
+                            <button
+                                class="flex flex-col items-center justify-center p-4 rounded-lg border border-white/10 bg-white/5 hover:bg-red-500/10 hover:border-red-500/50 transition-all group">
+                                <iconify-icon icon="solar:danger-circle-linear"
+                                    class="text-2xl text-gray-400 group-hover:text-red-400 mb-2"></iconify-icon>
+                                <span class="text-xs text-gray-300 group-hover:text-white">Problème</span>
+                            </button>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-2 uppercase tracking-widest">Commentaire
+                                    Rapide</label>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <button
+                                        class="px-3 py-1.5 rounded-full border border-white/10 text-[10px] text-gray-300 hover:bg-white hover:text-black transition-colors">Manque
+                                        d'observation</button>
+                                    <button
+                                        class="px-3 py-1.5 rounded-full border border-white/10 text-[10px] text-gray-300 hover:bg-white hover:text-black transition-colors">Bonne
+                                        dynamique</button>
+                                    <button
+                                        class="px-3 py-1.5 rounded-full border border-white/10 text-[10px] text-gray-300 hover:bg-white hover:text-black transition-colors">Trajectoire
+                                        imprécise</button>
+                                </div>
+                                <textarea
+                                    class="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-sm text-white focus:border-white/30 outline-none h-24 resize-none"
+                                    placeholder="Note spécifique..."></textarea>
+                            </div>
+                            <div class="flex justify-end">
+                                <button onclick="showToast('Compte rendu envoyé')"
+                                    class="px-6 py-2 bg-white text-black text-xs uppercase tracking-widest font-medium rounded hover:bg-gray-200 transition-colors">Valider
+                                    la séance</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: ADMIN -->
+            <div id="view-admin" class="max-w-6xl mx-auto space-y-8 hidden">
+                <!-- Stats Overview -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="glass-panel p-5 rounded-xl">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-[10px] uppercase text-gray-500 tracking-widest">Revenus (Mois)</span>
+                            <span class="text-green-400 text-xs">+12%</span>
+                        </div>
+                        <span class="text-2xl font-light text-white">42,500€</span>
+                    </div>
+                    <div class="glass-panel p-5 rounded-xl">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-[10px] uppercase text-gray-500 tracking-widest">Élèves Actifs</span>
+                            <span class="text-gray-400 text-xs">Total: 142</span>
+                        </div>
+                        <span class="text-2xl font-light text-white">89</span>
+                    </div>
+                    <div class="glass-panel p-5 rounded-xl border-red-500/20">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-[10px] uppercase text-red-400 tracking-widest">Impayés</span>
+                            <iconify-icon icon="solar:bill-list-linear" class="text-red-400"></iconify-icon>
+                        </div>
+                        <span class="text-2xl font-light text-white">1,250€</span>
+                        <p class="text-[10px] text-gray-500 mt-1">3 élèves bloqués</p>
+                    </div>
+                    <div class="glass-panel p-5 rounded-xl">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-[10px] uppercase text-gray-500 tracking-widest">Taux Réussite</span>
+                        </div>
+                        <span class="text-2xl font-light text-white">78%</span>
+                    </div>
+                </div>
+
+                <!-- Management Tables -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Students List -->
+                    <div class="lg:col-span-2 glass-panel rounded-xl overflow-hidden">
+                        <div class="p-6 border-b border-white/5 flex justify-between items-center">
+                            <h3 class="text-sm font-medium text-white">Dossiers Élèves</h3>
+                            <button class="text-xs text-gray-400 hover:text-white flex items-center gap-1">
+                                <iconify-icon icon="solar:filter-linear"></iconify-icon> Filtres
+                            </button>
+                        </div>
+                        <table class="w-full text-left">
+                            <thead class="bg-white/5 text-[10px] uppercase text-gray-500 tracking-widest">
+                                <tr>
+                                    <th class="px-6 py-3 font-normal">Nom</th>
+                                    <th class="px-6 py-3 font-normal">Progression</th>
+                                    <th class="px-6 py-3 font-normal">Statut</th>
+                                    <th class="px-6 py-3 font-normal text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5 text-xs text-gray-300">
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="px-6 py-4 font-medium text-white">Martin, Paul</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-16 h-1 bg-gray-700 rounded-full overflow-hidden">
+                                                <div class="h-full bg-blue-500 w-3/4"></div>
+                                            </div>
+                                            <span>28h</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4"><span
+                                            class="px-2 py-0.5 rounded bg-green-500/10 text-green-400 border border-green-500/20">Prêt
+                                            Exam</span></td>
+                                    <td class="px-6 py-4 text-right"><button
+                                            class="text-white hover:underline">Gérer</button></td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="px-6 py-4 font-medium text-white">Dubois, Clara</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-16 h-1 bg-gray-700 rounded-full overflow-hidden">
+                                                <div class="h-full bg-white w-1/4"></div>
+                                            </div>
+                                            <span>5h</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4"><span
+                                            class="px-2 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/20">Paiement
+                                            Requis</span></td>
+                                    <td class="px-6 py-4 text-right"><button
+                                            class="text-white hover:underline">Relancer</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Optimization Suggestions (Différenciant) -->
+                    <div class="glass-panel p-6 rounded-xl relative overflow-hidden">
+                        <div
+                            class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl -mr-10 -mt-10">
+                        </div>
+                        <h3 class="text-sm font-medium text-white mb-6 relative z-10">Optimisation Planning</h3>
+
+                        <div class="space-y-4 relative z-10">
+                            <div class="p-4 rounded border border-white/10 bg-black/20">
+                                <div class="flex gap-3 mb-2">
+                                    <iconify-icon icon="solar:magic-stick-3-linear"
+                                        class="text-purple-400"></iconify-icon>
+                                    <span class="text-xs text-white">3 trous dans le planning de Sarah</span>
+                                </div>
+                                <p class="text-[10px] text-gray-500 mb-3">Mardi après-midi. 3 élèves en liste d'attente
+                                    correspondent aux critères.</p>
+                                <button
+                                    class="w-full py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-[10px] text-white rounded transition-colors">Combler
+                                    automatiquement</button>
+                            </div>
+
+                            <div class="p-4 rounded border border-white/10 bg-black/20">
+                                <div class="flex gap-3 mb-2">
+                                    <iconify-icon icon="solar:graph-up-linear" class="text-blue-400"></iconify-icon>
+                                    <span class="text-xs text-white">Taux d'échec Code</span>
+                                </div>
+                                <p class="text-[10px] text-gray-500 mb-3">Thème "Priorités" en baisse de 15% cette
+                                    semaine sur l'ensemble des élèves.</p>
+                                <button
+                                    class="w-full py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-[10px] text-white rounded transition-colors">Envoyer
+                                    Quiz Ciblé</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-24 right-6 transform translate-x-full transition-transform duration-500 z-50">
+        <div class="bg-white text-black px-6 py-4 rounded shadow-2xl flex items-center gap-3 min-w-[300px]">
+            <iconify-icon icon="solar:check-circle-bold" class="text-green-600"></iconify-icon>
+            <div>
+                <span id="toastMsg" class="text-sm font-medium block">Notification</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State Management for Demo
+        const state = {
+            currentView: 'student',
+            user: {
+                student: { name: 'Julien Dupont', role: 'Élève - Permis B' },
+                staff: { name: 'Sarah Miller', role: 'Monitrice Principale' },
+                admin: { name: 'Marc directeur', role: 'Administrateur' }
+            }
+        };
+
+        const mapUrls = {
+            center: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.99162569376!2d2.292292615509614!3d48.85837007928746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0!2sTour%20Eiffel!5e0!3m2!1sfr!2sfr!4v1697554900000!5m2!1sfr!2sfr",
+            highway: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d83998.94722687504!2d2.2770198716796876!3d48.8588377391234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e1f06e2b70f%3A0x40b82c3688c9460!2sParis!5e0!3m2!1sfr!2sfr!4v1697555100000!5m2!1sfr!2sfr",
+            parking: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2625.475253846664!2d2.345832776756184!3d48.8491880792867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e671e19ff53a0f%3A0x5c40960883777e02!2sParking%20Indigo%20Paris%20Soufflot-Panth%C3%A9on!5e0!3m2!1sfr!2sfr!4v1697555200000!5m2!1sfr!2sfr"
+        };
+
+        function updateMap(type) {
+            const frame = document.getElementById('map-frame');
+            frame.classList.add('opacity-0');
+
+            setTimeout(() => {
+                frame.src = mapUrls[type];
+                frame.onload = () => {
+                    frame.classList.remove('opacity-0');
+                };
+                // Fallback in case onload fires too fast or not at all (cached)
+                setTimeout(() => frame.classList.remove('opacity-0'), 500);
+            }, 300);
+
+            const labels = { center: 'Centre-ville', highway: 'Autoroute', parking: 'Zone Stationnement' };
+            showToast(`Zone chargée : ${labels[type]}`);
+        }
+
+        const navConfigs = {
+            student: [
+                { icon: 'solar:steering-wheel-linear', label: 'Ma Conduite' },
+                { icon: 'solar:book-2-linear', label: 'Code de la route' }
+            ],
+            staff: [
+                { icon: 'solar:users-group-rounded-linear', label: 'Mes Élèves' },
+                { icon: 'solar:checklist-minimalistic-linear', label: 'Évaluations' }
+            ],
+            admin: [
+                { icon: 'solar:chart-square-linear', label: 'Statistiques' },
+                { icon: 'solar:wallet-money-linear', label: 'Finances' },
+                { icon: 'solar:settings-linear', label: 'Configuration' }
+            ]
+        };
+
+        function switchView(view) {
+            // Update State
+            state.currentView = view;
+
+            // Update UI: Sidebar User
+            document.getElementById('userName').innerText = state.user[view].name;
+            document.getElementById('userRole').innerText = state.user[view].role;
+
+            // Update UI: Active Button
+            document.querySelectorAll('#btn-student, #btn-staff, #btn-admin').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-black');
+                btn.classList.add('text-gray-400');
+            });
+            const activeBtn = document.getElementById(`btn-${view}`);
+            activeBtn.classList.remove('text-gray-400');
+            activeBtn.classList.add('bg-white', 'text-black');
+
+            // Update UI: Context Nav
+            const navContainer = document.getElementById('contextNav');
+            navContainer.innerHTML = `<div class="text-[10px] uppercase tracking-widest text-gray-500 px-3 mb-2">Espace ${view}</div>`;
+            navConfigs[view].forEach(item => {
+                navContainer.innerHTML += `
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-400 rounded hover:bg-white/5 hover:text-white transition-colors group">
+                        <iconify-icon icon="${item.icon}" class="text-gray-400 group-hover:text-white transition-colors"></iconify-icon>
+                        ${item.label}
+                    </a>
+                `;
+            });
+
+            // Update UI: Main Content Areas
+            document.getElementById('view-student').classList.add('hidden');
+            document.getElementById('view-staff').classList.add('hidden');
+            document.getElementById('view-admin').classList.add('hidden');
+
+            const activeView = document.getElementById(`view-${view}`);
+            activeView.classList.remove('hidden');
+            activeView.classList.add('fade-in'); // Re-trigger animation
+
+            showToast(`Mode ${view.charAt(0).toUpperCase() + view.slice(1)} activé`);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('translate-x-full');
+            setTimeout(() => toast.classList.add('translate-x-full'), 3000);
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            switchView('student');
+        });
+    </script>
+
+</body>
+
+</html>
