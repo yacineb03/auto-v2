@@ -1,18 +1,21 @@
-import Database from 'better-sqlite3';
-import { join } from 'path';
+import { createClient } from '@libsql/client';
 
-let db: any = null;
+let client: any = null;
 
 export const useDb = () => {
-    if (!db) {
-        // On Railway, we will use /data/driveflow.sqlite mapped to a Volume
-        // On Local, it will stay in the project root
-        const dbPath = process.env.DATABASE_PATH || join(process.cwd(), 'driveflow.sqlite');
+    if (!client) {
+        const url = process.env.TURSO_DATABASE_URL || `file:${process.cwd()}/driveflow.sqlite`;
+        const authToken = process.env.TURSO_AUTH_TOKEN;
 
-        console.log(`--- CONNECTING TO DATABASE AT: ${dbPath} ---`);
+        console.log(`--- CONNECTING TO DATABASE AT: ${url} ---`);
 
-        db = new Database(dbPath, { verbose: console.log });
-        db.pragma('journal_mode = WAL');
+        client = createClient({
+            url: url,
+            authToken: authToken,
+        });
     }
-    return db;
+
+    // Turso (libsql) uses a slightly different API. 
+    // We'll wrap it to mimic a bit of what we had or just use it directly.
+    return client;
 };

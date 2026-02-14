@@ -12,7 +12,12 @@ export default defineEventHandler(async (event) => {
     }
 
     const db = useDb();
-    const user = db.prepare('SELECT * FROM users WHERE email = ?').get(email);
+    const result = await db.execute({
+        sql: 'SELECT * FROM users WHERE email = ?',
+        args: [email]
+    });
+
+    const user = result.rows[0];
 
     if (!user || user.password !== password) {
         throw createError({
@@ -21,11 +26,12 @@ export default defineEventHandler(async (event) => {
         });
     }
 
-    // Remove password from response
-    const { password: _, ...userWithoutPassword } = user;
+    // Libsql rows are objects but let's make sure we handle it cleanly
+    const userData = { ...user };
+    delete userData.password;
 
-    // Set session cookie (simplified for now)
-    setCookie(event, 'auth_session', JSON.stringify(userWithoutPassword), {
+    // Set session cookie
+    setCookie(event, 'auth_session', JSON.stringify(userData), {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         maxAge: 60 * 60 * 24 * 7 // 1 week
@@ -33,6 +39,6 @@ export default defineEventHandler(async (event) => {
 
     return {
         success: true,
-        user: userWithoutPassword
+        user: userData
     };
 });

@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@libsql/client": "^0.17.0",
     "better-sqlite3": "^12.6.2",
     "lucide-vue-next": "^0.344.0",
     "nuxt": "^3.11.0",
