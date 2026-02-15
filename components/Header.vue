@@ -12,7 +12,6 @@
         <a href="#features" class="hover:text-[#4F46E5] transition-colors">Fonctionnalités</a>
         <a href="#solution" class="hover:text-[#4F46E5] transition-colors">Solutions</a>
         <a href="#tech" class="hover:text-[#4F46E5] transition-colors">Technologie</a>
-        <a href="#pricing" class="hover:text-[#4F46E5] transition-colors">Tarifs</a>
       </div>
 
       <div class="flex items-center gap-4">

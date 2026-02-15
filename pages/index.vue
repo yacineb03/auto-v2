@@ -25,9 +25,6 @@
       <!-- Tech Stack -->
       <TechStack />
 
-      <!-- Pricing Teaser -->
-      <Pricing />
-
     </main>
 
     <!-- Footer -->

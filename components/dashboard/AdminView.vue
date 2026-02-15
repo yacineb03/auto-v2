@@ -17,16 +17,6 @@ const props = defineProps<Props>()
 
 const stats = [
   { 
-    label: "Chiffre d'affaires", 
-    value: '42 500 €', 
-    trend: '+12%', 
-    trendUp: true, 
-    icon: Wallet, 
-    color: 'text-indigo-600', 
-    bg: 'bg-indigo-50',
-    chartColor: 'bg-indigo-600'
-  },
-  { 
     label: 'Élèves Actifs', 
     value: '148', 
     trend: '+5%', 
@@ -55,6 +45,16 @@ const stats = [
     color: 'text-emerald-600', 
     bg: 'bg-emerald-50',
     chartColor: 'bg-emerald-600'
+  },
+  { 
+    label: 'Nouveaux Inscrits', 
+    value: '12', 
+    trend: '+3', 
+    trendUp: true, 
+    icon: UserPlus, 
+    color: 'text-indigo-600', 
+    bg: 'bg-indigo-50',
+    chartColor: 'bg-indigo-600'
   },
 ]
 
@@ -138,60 +138,21 @@ const recentStudents = [
     <!-- MAIN CONTENT GRID -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 px-4">
       
-      <!-- FINANCIAL CHART (8 COLS) -->
-      <div class="lg:col-span-8 space-y-8">
-        <div class="bg-white p-10 md:p-14 rounded-xl border border-slate-100 shadow-[0_30px_70px_rgba(0,0,0,0.03)] relative overflow-hidden">
-          <div class="flex justify-between items-center mb-12 relative">
+      <!-- MAIN ACTIVITY LIST (12 COLS) -->
+      <div class="lg:col-span-12 space-y-8">
+        <div class="bg-white p-10 rounded-xl border border-slate-100 shadow-[0_30px_70px_rgba(0,0,0,0.03)] flex flex-col h-full">
+          <div class="mb-10 flex justify-between items-center">
             <div>
-              <h3 class="text-3xl font-black italic uppercase tracking-tighter text-slate-900">Activité Financière</h3>
-              <p class="text-slate-400 text-xs font-bold uppercase tracking-widest mt-1">Évolution des revenus mensuels</p>
+              <h3 class="text-2xl font-black italic uppercase tracking-tighter text-slate-900">Derniers Inscrits</h3>
+              <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-1">Nouveaux membres du réseau</p>
             </div>
             <button class="w-12 h-12 rounded-lg bg-slate-50 text-slate-400 hover:text-indigo-600 transition-all flex items-center justify-center">
               <MoreHorizontal :size="24" />
             </button>
           </div>
 
-          <!-- CHART CANVAS -->
-          <div class="h-80 flex items-end gap-3 md:gap-8 relative pb-8">
-            <!-- Y-Axis Lines -->
-            <div class="absolute inset-x-0 inset-y-0 flex flex-col justify-between pointer-events-none">
-              <div v-for="i in 5" :key="i" class="border-b border-dashed border-slate-50 w-full h-0"></div>
-              <div class="border-b-2 border-slate-100 w-full h-0"></div>
-            </div>
-
-            <!-- Bars -->
-            <div v-for="item in activityData" :key="item.month" class="flex-1 flex flex-col items-center justify-end group z-10 relative h-full">
-              <!-- Value Tooltip -->
-              <div class="opacity-0 group-hover:opacity-100 absolute bottom-full mb-4 bg-slate-900 text-white text-[10px] font-black px-3 py-1.5 rounded-md transition-all scale-75 group-hover:scale-100">
-                {{ item.value }}k€
-              </div>
-              
-              <!-- Bar -->
-              <div 
-                class="w-full max-w-[50px] rounded-t-lg transition-all duration-700 cursor-pointer"
-                :class="[item.current ? 'bg-indigo-600 shadow-2xl shadow-indigo-200' : 'bg-slate-100 hover:bg-slate-200']"
-                :style="{ height: item.value + '%' }"
-              ></div>
-              
-              <!-- Label -->
-              <span class="absolute top-full mt-4 text-[10px] font-black uppercase tracking-widest" :class="item.current ? 'text-indigo-600' : 'text-slate-400'">
-                {{ item.month }}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RECENT REGISTRATIONS (4 COLS) -->
-      <div class="lg:col-span-4 space-y-8">
-        <div class="bg-white p-10 rounded-xl border border-slate-100 shadow-[0_30px_70px_rgba(0,0,0,0.03)] flex flex-col h-full">
-          <div class="mb-10">
-            <h3 class="text-2xl font-black italic uppercase tracking-tighter text-slate-900">Derniers Inscrits</h3>
-            <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-1">Nouveaux membres du réseau</p>
-          </div>
-
-          <div class="flex-1 space-y-6 overflow-y-auto pr-2 scrollbar-hide">
-            <div v-for="student in recentStudents" :key="student.name" class="flex items-center gap-6 group cursor-pointer p-4 -mx-4 rounded-xl hover:bg-slate-50 transition-all">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div v-for="student in recentStudents" :key="student.name" class="flex items-center gap-6 group cursor-pointer p-4 rounded-xl hover:bg-slate-50 transition-all border border-slate-50">
               <div class="w-14 h-14 rounded-lg bg-slate-100 flex items-center justify-center font-black text-slate-400 italic text-sm group-hover:bg-white group-hover:text-indigo-600 shadow-inner group-hover:shadow-sm transition-all border border-transparent group-hover:border-slate-100">
                 {{ student.avatar }}
               </div>
@@ -229,9 +190,9 @@ const recentStudents = [
       </NuxtLink>
       <button class="p-8 bg-white border border-slate-100 rounded-xl shadow-sm hover:border-indigo-200 transition-all text-center group">
         <div class="w-12 h-12 bg-slate-50 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">
-          <Wallet :size="24" />
+          <iconify-icon icon="solar:history-linear" width="24" />
         </div>
-        <p class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">Facturation</p>
+        <p class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">Historique</p>
       </button>
       <button class="p-8 bg-white border border-slate-100 rounded-xl shadow-sm hover:border-indigo-200 transition-all text-center group">
         <div class="w-12 h-12 bg-slate-50 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">

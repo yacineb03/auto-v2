@@ -10,7 +10,6 @@ import AIChatAssistant from './eleve/AIChatAssistant.vue'
 import ActionBooking from './eleve/ActionBooking.vue'
 import ActionCode from './eleve/ActionCode.vue'
 import ActionMap from './eleve/ActionMap.vue'
-import ActionRecharge from './eleve/ActionRecharge.vue'
 </script>
 
 <template>
@@ -27,14 +26,10 @@ import ActionRecharge from './eleve/ActionRecharge.vue'
         <ActionCode />
       </div>
       <ProgressCards />
-      <div class="space-y-4">
-        <h2 class="text-xs font-black text-slate-400 uppercase tracking-[0.2em] px-1 text-center">Recharger mon forfait</h2>
-        <PaymentRecharge />
-      </div>
       <ExamRouteVideo />
       <div class="grid grid-cols-2 gap-4">
-        <ActionRecharge />
         <ActionMap />
+        <ActionCode />
       </div>
       <AIChatAssistant />
       <DrivingZones />
@@ -56,10 +51,6 @@ import ActionRecharge from './eleve/ActionRecharge.vue'
           <ProgressCards />
         </div>
         <div class="space-y-4">
-          <h2 class="text-xs font-black text-slate-400 uppercase tracking-[0.2em] px-1">Financement de ma formation</h2>
-          <PaymentRecharge />
-        </div>
-        <div class="space-y-4">
           <h2 class="text-xs font-black text-slate-400 uppercase tracking-[0.2em] px-1">Besoin d'aide ?</h2>
           <AIChatAssistant />
         </div>
@@ -73,8 +64,8 @@ import ActionRecharge from './eleve/ActionRecharge.vue'
           <h2 class="text-xs font-black text-slate-400 uppercase tracking-[0.2em] px-1">Mon Parcours Examen</h2>
           <ExamRouteVideo />
         </div>
-        <div class="grid grid-cols-2 gap-4">
-           <ActionRecharge />
+        <div class="space-y-4">
+           <h2 class="text-xs font-black text-slate-400 uppercase tracking-[0.2em] px-1">Ma Carte</h2>
            <ActionMap />
         </div>
         <div class="space-y-4">

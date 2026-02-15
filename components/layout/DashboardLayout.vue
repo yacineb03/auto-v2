@@ -292,7 +292,7 @@ const menuItems = computed(() => {
       { to: '/planning', icon: 'solar:calendar-linear', label: 'Planning' },
       { to: '/flotte', icon: 'solar:car-linear', label: 'Flotte' },
       { to: '/documents-admin', icon: 'solar:file-text-linear', label: 'Documents' },
-      { to: '/paiements', icon: 'solar:wallet-money-linear', label: 'Paiements' },
+      // { to: '/paiements', icon: 'solar:wallet-money-linear', label: 'Paiements' },
       { to: '/statistiques', icon: 'solar:chart-square-linear', label: 'Statistiques' }
     ]
   }

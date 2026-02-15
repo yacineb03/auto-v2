@@ -61,7 +61,7 @@
         <ul class="space-y-3 text-neutral-500 text-sm">
           <li class="flex items-center gap-2">
             <iconify-icon icon="solar:check-circle-linear" class="text-[#4F46E5]"></iconify-icon>
-            Tableau de bord financier
+            Tableau de bord complet
           </li>
           <li class="flex items-center gap-2">
             <iconify-icon icon="solar:check-circle-linear" class="text-[#4F46E5]"></iconify-icon>
@@ -69,7 +69,7 @@
           </li>
           <li class="flex items-center gap-2">
             <iconify-icon icon="solar:check-circle-linear" class="text-[#4F46E5]"></iconify-icon>
-            Paiements automatisés
+            Gestion des documents
           </li>
         </ul>
       </div>
