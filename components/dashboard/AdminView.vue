@@ -3,8 +3,11 @@ import { ref, computed } from 'vue'
 import { 
   TrendingUp, Users, Clock, Trophy, 
   ArrowUpRight, ArrowDownRight, MoreHorizontal,
-  Calendar, Wallet, Target, UserPlus
+  Calendar, Wallet, Target, UserPlus, LogOut
 } from 'lucide-vue-next'
+
+const { logout } = useAuth()
+const router = useRouter()
 
 interface Props {
   user: any
@@ -75,34 +78,35 @@ const recentStudents = [
   <div class="animate-in fade-in duration-1000 space-y-16 pb-32 max-w-[1400px] mx-auto px-4">
     
     <!-- ELITE HEADER ADMIN -->
-    <header class="px-4 mb-12">
-      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8 bg-white p-6 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden">
+    <header class="px-0 sm:px-4 mb-8 sm:mb-12">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 sm:gap-8 bg-white p-4 sm:p-6 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden">
         <!-- Decoration -->
         <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-50 rounded-full blur-3xl opacity-50"></div>
 
-        <div class="flex items-center gap-6 relative z-10">
-          <div class="w-14 h-14 bg-indigo-600 text-white rounded-lg flex items-center justify-center shadow-lg shadow-indigo-100">
-            <TrendingUp :size="28" />
+        <div class="flex items-center gap-4 sm:gap-6 relative z-10 font-sans">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 bg-indigo-600 text-white rounded-lg flex items-center justify-center shadow-lg shadow-indigo-100 shrink-0">
+            <TrendingUp :size="24" class="sm:hidden" />
+            <TrendingUp :size="28" class="hidden sm:block" />
           </div>
-          <div>
-            <h1 class="text-2xl font-black text-slate-900 uppercase italic tracking-tighter leading-none">Vue Globale</h1>
-            <div class="flex items-center gap-3 mt-2">
-               <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Octobre 2023</span>
-               <span class="w-1 h-1 rounded-full bg-slate-200"></span>
-               <span class="flex items-center gap-1.5 text-[9px] font-black text-emerald-500 uppercase tracking-widest bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">
+          <div class="min-w-0">
+            <h1 class="text-lg sm:text-2xl font-black text-slate-900 uppercase italic tracking-tighter leading-none truncate">Vue Globale</h1>
+            <div class="flex flex-wrap items-center gap-2 mt-1.5 sm:mt-2">
+               <span class="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">Octobre 2023</span>
+               <span class="hidden sm:block w-1 h-1 rounded-full bg-slate-200"></span>
+               <span class="flex items-center gap-1.5 text-[8px] sm:text-[9px] font-black text-emerald-500 uppercase tracking-widest bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">
                  <div class="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></div>
-                 Performance +12%
+                 Perf +12%
                </span>
             </div>
           </div>
         </div>
 
-        <div class="flex items-center gap-3 relative z-10">
-           <button class="px-6 py-3.5 bg-slate-50 border border-slate-100 rounded-lg text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-indigo-600 hover:border-indigo-200 transition-all shadow-sm">
-              <Calendar :size="16" /> Personnaliser
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 relative z-10 w-full lg:w-auto">
+           <button class="flex items-center justify-center gap-2 px-4 py-3 bg-slate-50 border border-slate-100 rounded-lg text-[9px] font-black uppercase tracking-widest text-slate-500 hover:text-indigo-600 transition-all">
+              <Calendar :size="14" /> <span class="hidden sm:inline">Personnaliser</span><span class="sm:hidden">Options</span>
            </button>
-           <button class="bg-slate-900 text-white px-8 py-3.5 rounded-lg font-black text-[10px] uppercase tracking-widest shadow-xl hover:bg-indigo-600 transition-all flex items-center gap-3 group">
-             Générer Rapport <iconify-icon icon="solar:document-text-bold" width="16" class="group-hover:rotate-12 transition-transform" />
+           <button class="bg-slate-900 text-white px-6 py-3 rounded-lg font-black text-[9px] uppercase tracking-widest shadow-xl hover:bg-indigo-600 transition-all flex items-center justify-center gap-3">
+             Générer Rapport <iconify-icon icon="solar:document-text-bold" width="16" />
            </button>
         </div>
       </div>

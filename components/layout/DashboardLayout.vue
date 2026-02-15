@@ -137,9 +137,14 @@
             <button @click="isNotificationOpen = !isNotificationOpen" class="text-slate-400 pt-2"><iconify-icon icon="solar:bell-linear" width="22" /></button>
             <span v-if="notifications.filter(n => !n.read).length > 0" class="absolute top-1 right-0 w-2 h-2 bg-rose-500 rounded-full border-2 border-white"></span>
           </div>
-          <NuxtLink to="/settings" class="w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 text-[10px] font-bold border border-indigo-100 hover:bg-indigo-100 transition-colors">
-            {{ initials }}
-          </NuxtLink>
+          <div class="flex items-center gap-2">
+            <NuxtLink to="/settings" class="w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 text-[10px] font-bold border border-indigo-100 hover:bg-indigo-100 transition-colors">
+              {{ initials }}
+            </NuxtLink>
+            <button @click="handleLogout" class="w-8 h-8 rounded-full bg-rose-50 flex items-center justify-center text-rose-500 border border-rose-100 hover:bg-rose-100 transition-colors">
+              <iconify-icon icon="solar:logout-2-linear" width="18" />
+            </button>
+          </div>
         </div>
       </header>
 
@@ -179,17 +184,17 @@
 
       <!-- MOBILE BOTTOM NAV BAR (Fixe en bas sur mobile) -->
       <nav 
-        class="md:hidden fixed bottom-0 left-0 right-0 h-20 bg-white border-t border-slate-100 px-6 flex items-center justify-between z-50 pb-safe shadow-[0_-10px_30px_rgba(0,0,0,0.03)]"
+        class="md:hidden fixed bottom-0 left-0 right-0 h-20 bg-white border-t border-slate-100 flex items-center gap-1 z-50 pb-safe shadow-[0_-10px_30px_rgba(0,0,0,0.03)] overflow-x-auto no-scrollbar scroll-smooth px-4"
       >
         <NuxtLink
-          v-for="item in menuItems.slice(0, 5)"
+          v-for="item in menuItems"
           :key="item.to"
           :to="item.to"
-          class="flex flex-col items-center justify-center gap-1 transition-all"
+          class="flex flex-col items-center justify-center gap-1 transition-all min-w-[72px] shrink-0"
           :class="isActive(item.to) ? 'text-indigo-600' : 'text-slate-400'"
         >
           <iconify-icon :icon="item.icon" :width="isActive(item.to) ? 24 : 22" />
-          <span class="text-[9px] font-bold uppercase tracking-tighter">{{ item.label.split(' ')[0] }}</span>
+          <span class="text-[9px] font-bold uppercase tracking-tighter whitespace-nowrap">{{ item.label.split(' ')[0] }}</span>
         </NuxtLink>
       </nav>
     </main>

@@ -195,43 +195,44 @@ const pageSubtitle = computed(() => {
     <div v-if="user?.rank === 1" class="animate-in fade-in duration-700 space-y-10 pt-4 pb-20">
       
       <!-- TOP STATUS BAR -->
-      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8 bg-white p-6 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 sm:gap-8 bg-white p-4 sm:p-6 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden">
         <!-- Decoration subtle -->
         <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-50 rounded-full blur-3xl opacity-50"></div>
 
-        <div class="flex flex-wrap items-center gap-10 relative z-10">
+        <div class="flex flex-wrap items-center gap-6 sm:gap-10 relative z-10">
           <!-- Crédits -->
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-lg bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-100">
-              <Clock :size="22" />
+          <div class="flex items-center gap-3 sm:gap-4">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-100 shrink-0">
+              <Clock :size="20" class="sm:hidden" />
+              <Clock :size="22" class="hidden sm:block" />
             </div>
             <div>
-              <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1.5">Heures Restantes</p>
-              <p class="text-2xl font-black text-slate-900 tabular-nums italic">
+              <p class="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1 sm:mb-1.5">Crédits</p>
+              <p class="text-xl sm:text-2xl font-black text-slate-900 tabular-nums italic">
                 <span :class="remainingHours < 2 ? 'text-rose-500' : 'text-indigo-600'">{{ remainingHours }}</span>
-                <span class="text-slate-300 text-sm not-italic ml-1">/ {{ studentCredits.total }}h</span>
+                <span class="text-slate-300 text-xs sm:text-sm not-italic ml-1">/ {{ studentCredits.total }}h</span>
               </p>
             </div>
           </div>
 
-          <div class="h-10 w-px bg-slate-100 hidden sm:block"></div>
+          <div class="hidden sm:block h-10 w-px bg-slate-100"></div>
 
           <!-- Prochain RDV Rapide -->
-          <div class="flex items-center gap-4">
-            <div class="w-10 h-10 rounded-lg bg-slate-50 text-slate-400 flex items-center justify-center">
+          <div class="flex items-center gap-3 sm:gap-4">
+            <div class="w-10 h-10 rounded-lg bg-slate-50 text-slate-400 flex items-center justify-center shrink-0">
               <CalendarIcon :size="18" />
             </div>
-            <div>
-              <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1.5">Prochaine Séance</p>
-              <p class="text-sm font-black text-slate-900 uppercase">Lundi 09 Fév. • 09:00</p>
+            <div class="min-w-0">
+              <p class="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1 sm:mb-1.5">Prochain RDV</p>
+              <p class="text-xs sm:text-sm font-black text-slate-900 uppercase truncate">09 Fév. • 09:00</p>
             </div>
           </div>
         </div>
 
         <!-- Duration Switcher -->
-        <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-lg border border-slate-200 relative z-10">
-           <button @click="selectedDuration = '1h'" :class="selectedDuration === '1h' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-900'" class="px-6 py-2 rounded-md text-[10px] font-black transition-all uppercase">1 Heure</button>
-           <button @click="selectedDuration = '2h'" :class="selectedDuration === '2h' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-900'" class="px-6 py-2 rounded-md text-[10px] font-black transition-all uppercase">2 Heures</button>
+        <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-lg border border-slate-200 relative z-10 w-full lg:w-auto">
+           <button @click="selectedDuration = '1h'" :class="selectedDuration === '1h' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500'" class="flex-1 lg:flex-none px-4 sm:px-6 py-2 rounded-md text-[9px] sm:text-[10px] font-black transition-all uppercase">1H</button>
+           <button @click="selectedDuration = '2h'" :class="selectedDuration === '2h' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500'" class="flex-1 lg:flex-none px-4 sm:px-6 py-2 rounded-md text-[9px] sm:text-[10px] font-black transition-all uppercase">2H</button>
         </div>
       </div>
 
@@ -340,43 +341,41 @@ const pageSubtitle = computed(() => {
     <div v-else class="animate-in fade-in duration-700 space-y-10 pt-4 pb-20">
       
       <!-- TOP STATUS BAR (Agenda Control) -->
-      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-white p-6 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden">
-        <div class="flex flex-wrap items-center gap-6 relative z-10">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-white p-4 sm:p-6 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6 relative z-10">
           <!-- Date Navigator -->
-          <div class="flex items-center gap-2 bg-slate-50 p-1.5 rounded-lg border border-slate-100">
-            <button class="w-10 h-10 rounded-lg hover:bg-white hover:text-indigo-600 transition-all flex items-center justify-center text-slate-400 group">
-              <ChevronLeft :size="20" class="group-hover:-translate-x-0.5 transition-transform" />
+          <div class="flex items-center gap-2 bg-slate-50 p-1 rounded-lg border border-slate-100 justify-between sm:justify-start">
+            <button class="w-10 h-10 rounded-lg hover:bg-white hover:text-indigo-600 transition-all flex items-center justify-center text-slate-400">
+              <ChevronLeft :size="20" />
             </button>
-            <div class="px-6 flex flex-col items-center">
-              <span class="text-[8px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Planning du jour</span>
-              <span class="text-xs font-black uppercase tracking-widest text-slate-900">Lundi 09 Fév.</span>
+            <div class="px-4 sm:px-6 flex flex-col items-center">
+              <span class="text-[8px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Planning</span>
+              <span class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-900 whitespace-nowrap">Lundi 09 Fév.</span>
             </div>
-            <button class="w-10 h-10 rounded-lg hover:bg-white hover:text-indigo-600 transition-all flex items-center justify-center text-slate-400 group">
-              <ChevronRight :size="20" class="group-hover:translate-x-0.5 transition-transform" />
+            <button class="w-10 h-10 rounded-lg hover:bg-white hover:text-indigo-600 transition-all flex items-center justify-center text-slate-400">
+              <ChevronRight :size="20" />
             </button>
           </div>
 
-          <div class="hidden sm:block h-8 w-px bg-slate-100"></div>
-
           <!-- Search -->
-          <div class="relative group min-w-[280px]">
-            <Search :size="16" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-indigo-600 transition-colors" />
+          <div class="relative group w-full sm:min-w-[240px]">
+            <Search :size="14" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" />
             <input 
               v-model="searchQuery"
               type="text" 
-              placeholder="RECHERCHER ÉLÈVE, MONITEUR..." 
-              class="w-full bg-slate-50 border border-slate-100 py-3.5 pl-12 pr-6 rounded-lg text-[10px] font-black uppercase tracking-widest outline-none focus:border-indigo-400 focus:bg-white transition-all" 
+              placeholder="RECHERCHE..." 
+              class="w-full bg-slate-50 border border-slate-100 py-3 pl-10 pr-4 rounded-lg text-[10px] font-black uppercase tracking-widest outline-none focus:border-indigo-400 transition-all" 
             />
           </div>
         </div>
         
-        <div class="flex items-center gap-3 relative z-10">
-           <button v-if="user?.rank === 2" @click="isAvailabilityModalOpen = true" class="px-6 py-3.5 bg-white border border-slate-100 rounded-lg text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-indigo-600 hover:border-indigo-200 transition-all flex items-center gap-3 shadow-sm">
-              <iconify-icon icon="solar:settings-bold" width="16" /> Mes Horaires
+        <div class="flex flex-row items-center gap-2 sm:gap-3 relative z-10 w-full lg:w-auto">
+           <button v-if="user?.rank === 2" @click="isAvailabilityModalOpen = true" class="flex-1 lg:flex-none px-4 py-3 bg-white border border-slate-100 rounded-lg text-[9px] font-black uppercase tracking-widest text-slate-500 hover:text-indigo-600 transition-all flex items-center justify-center gap-2 shadow-sm">
+              <iconify-icon icon="solar:settings-bold" width="14" /> <span class="hidden sm:inline">Mes Horaires</span><span class="sm:hidden">Horaires</span>
            </button>
            
-           <button v-if="user?.rank === 2 || user?.rank === 3" @click="isAddModalOpen = true" class="bg-indigo-600 text-white px-8 py-3.5 rounded-lg font-black text-[10px] uppercase tracking-widest shadow-xl shadow-indigo-100 flex items-center gap-3 hover:bg-slate-900 transition-all">
-             <Plus :size="16" /> Nouveau Créneau
+           <button v-if="user?.rank === 2 || user?.rank === 3" @click="isAddModalOpen = true" class="flex-1 lg:flex-none bg-indigo-600 text-white px-4 sm:px-6 py-3 rounded-lg font-black text-[9px] uppercase tracking-widest shadow-xl shadow-indigo-100 flex items-center justify-center gap-2 hover:bg-slate-900 transition-all">
+             <Plus :size="14" /> <span class="hidden sm:inline">Nouveau Créneau</span><span class="sm:hidden">Ajouter</span>
            </button>
         </div>
       </div>

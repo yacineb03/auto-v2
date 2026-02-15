@@ -39,21 +39,14 @@
     </div>
 
     <!-- Right Side: Login Form -->
-    <div class="flex items-center justify-center p-6 sm:p-12 relative">
-      <!-- Mobile Back Button -->
-      <NuxtLink to="/" class="absolute top-6 left-6 lg:hidden flex items-center gap-2 text-neutral-500 hover:text-neutral-900 transition-colors">
-        <iconify-icon icon="solar:arrow-left-linear" width="20" />
-        Retour
-      </NuxtLink>
-
-      <div class="w-full max-w-md space-y-8">
+    <div class="flex items-center justify-center p-6 sm:p-12 relative overflow-y-auto">
+      <div class="w-full max-w-sm space-y-8">
         <div class="text-center lg:text-left">
-          <h1 class="text-3xl font-bold tracking-tight text-neutral-900">Bon retour ! 👋</h1>
+          <h1 class="text-3xl font-bold tracking-tight text-neutral-900">Bon retour !</h1>
           <p class="text-neutral-500 mt-2">Connectez-vous pour accéder à votre espace de gestion.</p>
         </div>
 
         <form class="space-y-6" @submit.prevent="handleLogin">
-          
           <!-- Email -->
           <UiInput
             v-model="form.email"
@@ -91,7 +84,7 @@
             full-width
             icon="solar:login-2-linear"
           >
-            {{ loading ? 'Connexion...' : 'Se connecter' }}
+            {{ loading ? 'Connexion en cours...' : 'Se connecter' }}
           </UiButton>
         </form>
 
@@ -126,7 +119,7 @@
         </div>
 
         <!-- Register Link -->
-        <p class="text-center text-sm text-neutral-500 mt-6">
+        <p class="text-center text-sm text-neutral-500 mt-6 pt-4 border-t border-neutral-50">
           Pas encore de compte ? 
           <NuxtLink to="/register" class="font-semibold text-[#4F46E5] hover:underline">Créer une auto-école</NuxtLink>
         </p>

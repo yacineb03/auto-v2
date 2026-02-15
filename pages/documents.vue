@@ -69,38 +69,38 @@ const selectedDoc = ref<Document | null>(null)
     <div class="max-w-5xl mx-auto pb-32 pt-4 animate-in fade-in slide-in-from-bottom-4 duration-1000">
       
       <!-- ELITE STATUS OVERVIEW -->
-      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8 bg-white p-6 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden mb-12">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 sm:gap-8 bg-white p-4 sm:p-6 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden mb-8 sm:mb-12">
         <!-- Decoration side -->
         <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-50 rounded-full blur-3xl opacity-50"></div>
 
-        <div class="flex flex-wrap items-center gap-10 relative z-10">
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-lg bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-100">
-               <ShieldCheck :size="22" />
+        <div class="flex flex-wrap items-center gap-6 sm:gap-10 relative z-10">
+          <div class="flex items-center gap-3 sm:gap-4">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-100 shrink-0">
+               <ShieldCheck :size="20" />
             </div>
             <div>
-              <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1.5">État du dossier</p>
-              <p class="text-xl font-black text-slate-900 uppercase italic">Partiellement Validé</p>
+              <p class="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1 sm:mb-1.5">Dossier</p>
+              <p class="text-sm sm:text-xl font-black text-slate-900 uppercase italic">Partiel</p>
             </div>
           </div>
 
-          <div class="h-10 w-px bg-slate-100 hidden sm:block"></div>
+          <div class="hidden sm:block h-10 w-px bg-slate-100"></div>
 
           <div class="flex items-center gap-6">
             <div class="space-y-2">
-               <div class="flex justify-between items-center text-[9px] font-black uppercase tracking-widest text-slate-400">
+               <div class="flex justify-between items-center text-[8px] sm:text-[9px] font-black uppercase tracking-widest text-slate-400">
                   <span>Progression</span>
                   <span class="text-indigo-600">60%</span>
                </div>
                <div class="flex gap-1.5">
-                 <div v-for="i in 5" :key="i" :class="['w-6 h-1.5 rounded-full transition-all duration-700', i <= 3 ? 'bg-indigo-600 shadow-[0_0_8px_rgba(79,70,229,0.4)]' : 'bg-slate-100']"></div>
+                 <div v-for="i in 5" :key="i" :class="['w-5 sm:w-6 h-1.5 rounded-full transition-all duration-700', i <= 3 ? 'bg-indigo-600 shadow-[0_0_8px_rgba(79,70,229,0.4)]' : 'bg-slate-100']"></div>
                </div>
             </div>
           </div>
         </div>
 
-        <button class="relative z-10 px-6 py-3 bg-slate-900 text-white rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-indigo-600 transition-all shadow-lg flex items-center gap-3 group">
-          Guide Inscription <iconify-icon icon="solar:document-text-bold" width="16" class="group-hover:rotate-12 transition-transform" />
+        <button class="relative z-10 px-6 py-3.5 bg-slate-900 text-white rounded-lg text-[9px] sm:text-[10px] font-black uppercase tracking-widest hover:bg-indigo-600 transition-all shadow-lg flex items-center justify-center gap-3 w-full lg:w-auto">
+          Guide Inscription <iconify-icon icon="solar:document-text-bold" width="16" />
         </button>
       </div>
 

@@ -56,26 +56,26 @@ const setRating = (lessonId: number, rating: string) => {
   <div class="animate-in fade-in duration-1000 space-y-16 pb-32 max-w-[1400px] mx-auto px-4">
     
     <!-- ELITE HEADER INSTRUCTOR -->
-    <header class="px-4 mb-12">
-      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8 bg-white p-6 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden">
+    <header class="px-0 sm:px-4 mb-8 sm:mb-12">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 sm:gap-8 bg-white p-4 sm:p-6 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden">
         <!-- Decoration -->
         <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-50 rounded-full blur-3xl opacity-50"></div>
 
-        <div class="flex items-center gap-6 relative z-10">
-          <div class="w-14 h-14 bg-slate-900 text-white rounded-lg flex items-center justify-center shadow-lg">
+        <div class="flex items-center gap-4 sm:gap-6 relative z-10">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 bg-slate-900 text-white rounded-lg flex items-center justify-center shadow-lg shrink-0">
             <Calendar :size="24" />
           </div>
-          <div>
-            <h1 class="text-2xl font-black text-slate-900 uppercase italic tracking-tighter leading-none">Ma Journée</h1>
-            <div class="flex items-center gap-3 mt-2">
-               <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Lundi 09 Février</span>
-               <span class="w-1 h-1 rounded-full bg-slate-200"></span>
-               <span class="text-[9px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100">4 Leçons Planifiées</span>
+          <div class="min-w-0">
+            <h1 class="text-lg sm:text-2xl font-black text-slate-900 uppercase italic tracking-tighter leading-none truncate">Ma Journée</h1>
+            <div class="flex flex-wrap items-center gap-2 mt-1.5 sm:mt-2">
+               <span class="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">Lundi 09 Février</span>
+               <span class="hidden sm:block w-1 h-1 rounded-full bg-slate-200"></span>
+               <span class="text-[8px] sm:text-[9px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100">4 Leçons Planifiées</span>
             </div>
           </div>
         </div>
 
-        <div class="flex items-center gap-4 relative z-10">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 relative z-10 w-full lg:w-auto">
           <div class="hidden sm:flex items-center gap-3 px-6 py-3.5 bg-slate-50 border border-slate-100 rounded-lg">
             <div class="text-right">
               <p class="text-[8px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Total</p>
@@ -83,10 +83,10 @@ const setRating = (lessonId: number, rating: string) => {
             </div>
           </div>
           
-          <button class="bg-indigo-600 text-white px-8 py-3.5 rounded-lg font-black text-[10px] uppercase tracking-widest shadow-xl shadow-indigo-100 hover:bg-slate-900 transition-all flex items-center gap-6 group">
+          <button class="bg-indigo-600 text-white px-6 sm:px-8 py-3.5 rounded-lg font-black text-[10px] uppercase tracking-widest shadow-xl shadow-indigo-100 hover:bg-slate-900 transition-all flex items-center justify-between sm:justify-center gap-6 group w-full sm:w-auto">
             <div class="text-left">
               <p class="text-[8px] font-black text-indigo-200 uppercase tracking-widest leading-none mb-1">Prochain élève</p>
-              <p class="text-sm font-black italic group-hover:text-indigo-400 transition-colors uppercase">Sophie L.</p>
+              <p class="text-xs sm:text-sm font-black italic group-hover:text-indigo-400 transition-colors uppercase">Sophie L.</p>
             </div>
             <iconify-icon icon="solar:round-alt-arrow-right-bold" width="20" class="group-hover:translate-x-1 transition-transform" />
           </button>
